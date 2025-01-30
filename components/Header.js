@@ -12,19 +12,18 @@ const NavBar = () => {
     { id: 0, name: locale.NAV.INDEX, to: BLOG.path || '/', show: true },
     { id: 1, name: locale.NAV.ABOUT, to: '/about', show: BLOG.showAbout },
     { id: 2, name: locale.NAV.RSS, to: '/feed', show: true, external: true },
-    { id: 3, name: locale.NAV.SEARCH, to: '/search', show: true }
+    { id: 3, name: locale.NAV.SEARCH, to: '/search', show: true },
   ]
   return (
     <div className="flex-shrink-0">
       <ul className="flex flex-row">
         {links.map(
-          link =>
+          (link) =>
             link.show && (
-              <li
-                key={link.id}
-                className="block ml-4 text-black dark:text-gray-50 nav"
-              >
-                <Link href={link.to} target={link.external ? '_blank' : null}>{link.name}</Link>
+              <li key={link.id} className="nav ml-4 block text-black dark:text-gray-50">
+                <Link href={link.to} target={link.external ? '_blank' : null}>
+                  {link.name}
+                </Link>
               </li>
             )
         )}
@@ -33,15 +32,15 @@ const NavBar = () => {
   )
 }
 
-export default function Header ({ navBarTitle, fullWidth }) {
+export default function Header({ navBarTitle, fullWidth }) {
   const BLOG = useConfig()
   const { dark } = useTheme()
 
   // Favicon
 
-  const resolveFavicon = fallback => !fallback && dark ? '/favicon.dark.png' : '/favicon.png'
+  const resolveFavicon = (fallback) => (!fallback && dark ? '/favicon.dark.png' : '/favicon.png')
   const [favicon, _setFavicon] = useState(resolveFavicon())
-  const setFavicon = fallback => _setFavicon(resolveFavicon(fallback))
+  const setFavicon = (fallback) => _setFavicon(resolveFavicon(fallback))
 
   useEffect(
     () => setFavicon(),
@@ -52,13 +51,16 @@ export default function Header ({ navBarTitle, fullWidth }) {
   const useSticky = !BLOG.autoCollapsedNavBar
   const navRef = useRef(/** @type {HTMLDivElement} */ undefined)
   const sentinelRef = useRef(/** @type {HTMLDivElement} */ undefined)
-  const handler = useCallback(([entry]) => {
-    if (useSticky && navRef.current) {
-      navRef.current?.classList.toggle('sticky-nav-full', !entry.isIntersecting)
-    } else {
-      navRef.current?.classList.add('remove-sticky')
-    }
-  }, [useSticky])
+  const handler = useCallback(
+    ([entry]) => {
+      if (useSticky && navRef.current) {
+        navRef.current?.classList.toggle('sticky-nav-full', !entry.isIntersecting)
+      } else {
+        navRef.current?.classList.add('remove-sticky')
+      }
+    },
+    [useSticky]
+  )
 
   useEffect(() => {
     const sentinelEl = sentinelRef.current
@@ -72,12 +74,12 @@ export default function Header ({ navBarTitle, fullWidth }) {
 
   const titleRef = useRef(/** @type {HTMLParagraphElement} */ undefined)
 
-  function handleClickHeader (/** @type {MouseEvent} */ ev) {
+  function handleClickHeader(/** @type {MouseEvent} */ ev) {
     if (![navRef.current, titleRef.current].includes(ev.target)) return
 
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }
 
@@ -85,7 +87,7 @@ export default function Header ({ navBarTitle, fullWidth }) {
     <>
       <div className="observer-element h-4 md:h-12" ref={sentinelRef}></div>
       <div
-        className={`sticky-nav group m-auto w-full h-6 flex flex-row justify-between items-center mb-2 md:mb-12 py-8 bg-opacity-60 ${
+        className={`sticky-nav group m-auto mb-2 flex h-6 w-full flex-row items-center justify-between bg-opacity-60 py-8 md:mb-12 ${
           !fullWidth ? 'max-w-3xl px-4' : 'px-4 md:px-24'
         }`}
         id="sticky-nav"
@@ -94,7 +96,7 @@ export default function Header ({ navBarTitle, fullWidth }) {
       >
         <svg
           viewBox="0 0 24 24"
-          className="caret w-6 h-6 absolute inset-x-0 bottom-0 mx-auto pointer-events-none opacity-30 group-hover:opacity-100 transition duration-100"
+          className="caret pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-6 w-6 opacity-30 transition duration-100 group-hover:opacity-100"
         >
           <path
             d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z"
@@ -125,15 +127,18 @@ export default function Header ({ navBarTitle, fullWidth }) {
   )
 }
 
-const HeaderName = forwardRef(function HeaderName ({ siteTitle, siteDescription, postTitle, onClick }, ref) {
+const HeaderName = forwardRef(function HeaderName(
+  { siteTitle, siteDescription, postTitle, onClick },
+  ref
+) {
   return (
     <p
       ref={ref}
-      className="header-name ml-2 font-medium text-gray-600 dark:text-gray-300 capture-pointer-events grid-rows-1 grid-cols-1 items-center"
+      className="header-name capture-pointer-events ml-2 grid-cols-1 grid-rows-1 items-center font-medium text-gray-600 dark:text-gray-300"
       onClick={onClick}
     >
-      {postTitle && <span className="post-title row-start-1 col-start-1">{postTitle}</span>}
-      <span className="row-start-1 col-start-1">
+      {postTitle && <span className="post-title col-start-1 row-start-1">{postTitle}</span>}
+      <span className="col-start-1 row-start-1 inline-flex whitespace-nowrap">
         <span className="site-title">{siteTitle}</span>
         <span className="site-description font-normal">, {siteDescription}</span>
       </span>

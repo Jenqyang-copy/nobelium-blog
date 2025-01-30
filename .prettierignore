@@ -1,0 +1,9 @@
+.next
+node_modules
+public
+build
+coverage
+.vercel
+.github
+package-lock.json
+yarn.lock

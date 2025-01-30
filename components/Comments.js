@@ -19,7 +19,7 @@ const UtterancesComponent = dynamic(
 )
 const CusdisComponent = dynamic(
   () => {
-    return import('react-cusdis').then(m => m.ReactCusdis)
+    return import('react-cusdis').then((m) => m.ReactCusdis)
   },
   { ssr: false }
 )
@@ -33,8 +33,8 @@ const Comments = ({ frontMatter }) => {
   return (
     <div
       className={cn(
-        'px-4 font-medium text-gray-500 dark:text-gray-400 my-5',
-        fullWidth ? 'md:px-24' : 'mx-auto max-w-2xl',
+        'my-5 px-4 font-medium text-gray-500 dark:text-gray-400',
+        fullWidth ? 'md:px-24' : 'mx-auto max-w-2xl'
       )}
     >
       {BLOG.comment && BLOG.comment.provider === 'gitalk' && (
@@ -47,7 +47,7 @@ const Comments = ({ frontMatter }) => {
             repo: BLOG.comment.gitalkConfig.repo,
             owner: BLOG.comment.gitalkConfig.owner,
             admin: BLOG.comment.gitalkConfig.admin,
-            distractionFreeMode: BLOG.comment.gitalkConfig.distractionFreeMode
+            distractionFreeMode: BLOG.comment.gitalkConfig.distractionFreeMode,
           }}
         />
       )}
@@ -63,7 +63,7 @@ const Comments = ({ frontMatter }) => {
             pageId: frontMatter.id,
             pageTitle: frontMatter.title,
             pageUrl: BLOG.link + router.asPath,
-            theme: BLOG.appearance
+            theme: BLOG.appearance,
           }}
         />
       )}

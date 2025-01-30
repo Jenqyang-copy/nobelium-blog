@@ -82,7 +82,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .sticky-nav-full {
-  @apply border-b border-opacity-50 border-gray-200 dark:border-gray-600 dark:border-opacity-50 cursor-pointer;
+  @apply cursor-pointer border-b border-gray-200 border-opacity-50 dark:border-gray-600 dark:border-opacity-50;
 }
 
 .sticky-nav:not(.sticky-nav-full) .caret {
@@ -123,7 +123,7 @@ nav {
 
 @media (min-width: 768px) {
   .sticky-nav-full {
-    @apply max-w-full border-b border-opacity-50 border-gray-200 dark:border-gray-600 dark:border-opacity-50;
+    @apply max-w-full border-b border-gray-200 border-opacity-50 dark:border-gray-600 dark:border-opacity-50;
   }
   .header-name {
     display: grid;

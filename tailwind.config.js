@@ -9,11 +9,11 @@ export default {
     extend: {
       colors: {
         day: {
-          DEFAULT: config.lightBackground || '#ffffff'
+          DEFAULT: config.lightBackground || '#ffffff',
         },
         night: {
-          DEFAULT: config.darkBackground || '#111827'
-        }
+          DEFAULT: config.darkBackground || '#111827',
+        },
       },
       fontFamily: {
         sans: FONTS_SANS,
@@ -24,13 +24,13 @@ export default {
           'system-ui',
           '-apple-system',
           'BlinkMacSystemFont',
-          'sans-serif'
-        ]
-      }
-    }
+          'sans-serif',
+        ],
+      },
+    },
   },
   variants: {
-    extend: {}
+    extend: {},
   },
-  plugins: []
+  plugins: [],
 }

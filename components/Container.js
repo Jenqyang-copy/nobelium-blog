@@ -13,7 +13,7 @@ const Container = ({ children, layout, fullWidth, ...customMeta }) => {
   const meta = {
     title: BLOG.title,
     type: 'website',
-    ...customMeta
+    ...customMeta,
   }
   return (
     <div>
@@ -23,22 +23,14 @@ const Container = ({ children, layout, fullWidth, ...customMeta }) => {
         <meta name="robots" content="follow, index" />
         <meta charSet="UTF-8" />
         {BLOG.seo.googleSiteVerification && (
-          <meta
-            name="google-site-verification"
-            content={BLOG.seo.googleSiteVerification}
-          />
+          <meta name="google-site-verification" content={BLOG.seo.googleSiteVerification} />
         )}
-        {BLOG.seo.keywords && (
-          <meta name="keywords" content={BLOG.seo.keywords.join(', ')} />
-        )}
+        {BLOG.seo.keywords && <meta name="keywords" content={BLOG.seo.keywords.join(', ')} />}
         <meta name="description" content={meta.description} />
         <meta property="og:locale" content={BLOG.lang} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
-        <meta
-          property="og:url"
-          content={meta.slug ? `${url}/${meta.slug}` : url}
-        />
+        <meta property="og:url" content={meta.slug ? `${url}/${meta.slug}` : url} />
         <meta
           property="og:image"
           content={`${BLOG.ogImageGenerateURL}/${encodeURIComponent(
@@ -57,26 +49,19 @@ const Container = ({ children, layout, fullWidth, ...customMeta }) => {
         />
         {meta.type === 'article' && (
           <>
-            <meta
-              property="article:published_time"
-              content={meta.date}
-            />
+            <meta property="article:published_time" content={meta.date} />
             <meta property="article:author" content={BLOG.author} />
           </>
         )}
       </Head>
-      <div
-        className={`wrapper ${BLOG.font === 'serif' ? 'font-serif' : 'font-sans'
-          }`}
-      >
-        <Header
-          navBarTitle={layout === 'blog' ? meta.title : null}
-          fullWidth={fullWidth}
-        />
-        <main className={cn(
-          'flex-grow transition-all',
-          layout !== 'blog' && ['self-center px-4', fullWidth ? 'md:px-24' : 'w-full max-w-2xl']
-        )}>
+      <div className={`wrapper ${BLOG.font === 'serif' ? 'font-serif' : 'font-sans'}`}>
+        <Header navBarTitle={layout === 'blog' ? meta.title : null} fullWidth={fullWidth} />
+        <main
+          className={cn(
+            'flex-grow transition-all',
+            layout !== 'blog' && ['self-center px-4', fullWidth ? 'md:px-24' : 'w-full max-w-2xl']
+          )}
+        >
           {children}
         </main>
         <Footer fullWidth={fullWidth} />
@@ -86,7 +71,7 @@ const Container = ({ children, layout, fullWidth, ...customMeta }) => {
 }
 
 Container.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default Container

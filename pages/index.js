@@ -6,7 +6,7 @@ import Pagination from '@/components/Pagination'
 import { getAllPosts } from '@/lib/notion'
 import { useConfig } from '@/lib/config'
 
-export async function getStaticProps () {
+export async function getStaticProps() {
   const posts = await getAllPosts({ includePages: false })
   const postsToShow = posts.slice(0, clientConfig.postsPerPage)
   const totalPosts = posts.length
@@ -15,18 +15,18 @@ export async function getStaticProps () {
     props: {
       page: 1, // current page is 1
       postsToShow,
-      showNext
+      showNext,
     },
-    revalidate: 1
+    revalidate: 1,
   }
 }
 
-export default function Blog ({ postsToShow, page, showNext }) {
+export default function Blog({ postsToShow, page, showNext }) {
   const { title, description } = useConfig()
 
   return (
     <Container title={title} description={description}>
-      {postsToShow.map(post => (
+      {postsToShow.map((post) => (
         <BlogPost key={post.id} post={post} />
       ))}
       {showNext && <Pagination page={page} showNext={showNext} />}

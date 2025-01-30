@@ -7,7 +7,7 @@ dayjs.extend(localizedFormat)
 
 const loaded = {}
 
-export default function FormattedDate ({ date }) {
+export default function FormattedDate({ date }) {
   const lang = useConfig().lang.slice(0, 2)
   const [isLocaleLoaded, setIsLocaleLoaded] = useState(loaded[lang] === true)
 
@@ -22,7 +22,6 @@ export default function FormattedDate ({ date }) {
       )
       loaded[lang].then(() => setIsLocaleLoaded(true))
     }
-
   }, [isLocaleLoaded, lang])
 
   return <span>{dayjs(date).format('ll')}</span>

@@ -2,9 +2,11 @@ import PropTypes from 'prop-types'
 import { getPageTableOfContents } from 'notion-utils'
 import cn from 'classnames'
 
-export default function TableOfContents ({ blockMap, className, style }) {
+export default function TableOfContents({ blockMap, className, style }) {
   const collectionId = Object.keys(blockMap.collection)[0]
-  const page = Object.values(blockMap.block).find(block => block.value.parent_id === collectionId).value
+  const page = Object.values(blockMap.block).find(
+    (block) => block.value.parent_id === collectionId
+  ).value
   const nodes = getPageTableOfContents(page, blockMap)
 
   if (!nodes.length) return null
@@ -12,7 +14,7 @@ export default function TableOfContents ({ blockMap, className, style }) {
   /**
    * @param {string} id - The ID of target heading block (could be in UUID format)
    */
-  function scrollTo (id) {
+  function scrollTo(id) {
     id = id.replaceAll('-', '')
     const target = document.querySelector(`.notion-block-${id}`)
     if (!target) return
@@ -21,7 +23,7 @@ export default function TableOfContents ({ blockMap, className, style }) {
     const top = document.documentElement.scrollTop + target.getBoundingClientRect().top - 65
     document.documentElement.scrollTo({
       top,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }
 
@@ -30,12 +32,12 @@ export default function TableOfContents ({ blockMap, className, style }) {
       className={cn(className, 'pl-4 text-sm text-zinc-700/70 dark:text-neutral-400')}
       style={style}
     >
-      {nodes.map(node => (
+      {nodes.map((node) => (
         <div key={node.id}>
           <a
             data-target-id={node.id}
-            className="block py-1 hover:text-black dark:hover:text-white cursor-pointer transition duration-100"
-            style={{ paddingLeft: (node.indentLevel * 24) + 'px' }}
+            className="block cursor-pointer py-1 transition duration-100 hover:text-black dark:hover:text-white"
+            style={{ paddingLeft: node.indentLevel * 24 + 'px' }}
             onClick={() => scrollTo(node.id)}
           >
             {node.text}
@@ -47,5 +49,5 @@ export default function TableOfContents ({ blockMap, className, style }) {
 }
 
 TableOfContents.propTypes = {
-  blockMap: PropTypes.object.isRequired
+  blockMap: PropTypes.object.isRequired,
 }

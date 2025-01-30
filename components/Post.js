@@ -19,25 +19,27 @@ import TableOfContents from '@/components/TableOfContents'
  * @prop {string}   emailHash  - Author email hash (for Gravatar)
  * @prop {boolean} [fullWidth] - Whether in full-width mode
  */
-export default function Post (props) {
+export default function Post(props) {
   const BLOG = useConfig()
   const { post, blockMap, emailHash, fullWidth = false } = props
   const { dark } = useTheme()
 
   return (
     <article className={cn('flex flex-col', fullWidth ? 'md:px-24' : 'items-center')}>
-      <h1 className={cn(
-        'w-full font-bold text-3xl text-black dark:text-white',
-        { 'max-w-2xl px-4': !fullWidth }
-      )}>
+      <h1
+        className={cn('w-full text-3xl font-bold text-black dark:text-white', {
+          'max-w-2xl px-4': !fullWidth,
+        })}
+      >
         {post.title}
       </h1>
       {post.type[0] !== 'Page' && (
-        <nav className={cn(
-          'w-full flex mt-7 items-start text-gray-500 dark:text-gray-400',
-          { 'max-w-2xl px-4': !fullWidth }
-        )}>
-          <div className="flex mb-4">
+        <nav
+          className={cn('mt-7 flex w-full items-start text-gray-500 dark:text-gray-400', {
+            'max-w-2xl px-4': !fullWidth,
+          })}
+        >
+          <div className="mb-4 flex">
             <a href={BLOG.socialLink || '#'} className="flex">
               <Image
                 alt={BLOG.author}
@@ -50,27 +52,32 @@ export default function Post (props) {
             </a>
             <span className="block">&nbsp;/&nbsp;</span>
           </div>
-          <div className="mr-2 mb-4 md:ml-0">
+          <div className="mb-4 mr-2 md:ml-0">
             <FormattedDate date={post.date} />
           </div>
           {post.tags && (
-            <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">
-              {post.tags.map(tag => (
+            <div className="article-tags flex max-w-full flex-nowrap overflow-x-auto">
+              {post.tags.map((tag) => (
                 <TagItem key={tag} tag={tag} />
               ))}
             </div>
           )}
         </nav>
       )}
-      <div className="self-stretch -mt-4 flex flex-col items-center lg:flex-row lg:items-stretch">
-        {!fullWidth && <div className="flex-1 hidden lg:block" />}
-        <div className={fullWidth ? 'flex-1 pr-4' : 'flex-none w-full max-w-2xl px-4'}>
+      <div className="-mt-4 flex flex-col items-center self-stretch lg:flex-row lg:items-stretch">
+        {!fullWidth && <div className="hidden flex-1 lg:block" />}
+        <div className={fullWidth ? 'flex-1 pr-4' : 'w-full max-w-2xl flex-none px-4'}>
           <NotionRenderer recordMap={blockMap} fullPage={false} darkMode={dark} />
         </div>
-        <div className={cn('order-first lg:order-[unset] w-full lg:w-auto max-w-2xl lg:max-w-[unset] lg:min-w-[160px]', fullWidth ? 'flex-none' : 'flex-1')}>
+        <div
+          className={cn(
+            'order-first w-full max-w-2xl lg:order-[unset] lg:w-auto lg:min-w-[160px] lg:max-w-[unset]',
+            fullWidth ? 'flex-none' : 'flex-1'
+          )}
+        >
           {/* `65px` is the height of expanded nav */}
           {/* TODO: Remove the magic number */}
-          <TableOfContents blockMap={blockMap} className="pt-3 sticky" style={{ top: '65px' }} />
+          <TableOfContents blockMap={blockMap} className="sticky pt-3" style={{ top: '65px' }} />
         </div>
       </div>
     </article>
@@ -81,5 +88,5 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
   blockMap: PropTypes.object.isRequired,
   emailHash: PropTypes.string.isRequired,
-  fullWidth: PropTypes.bool
+  fullWidth: PropTypes.bool,
 }

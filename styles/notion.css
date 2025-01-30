@@ -190,7 +190,7 @@ pre[class*='language-'] {
 }
 
 .nobelium-block .nobelium-block {
-  @apply mt-1 mb-0;
+  @apply mb-0 mt-1;
 }
 
 /* Toggle block */
@@ -205,7 +205,7 @@ pre[class*='language-'] {
 }
 
 .nobelium-toggle > summary {
-  @apply cursor-pointer flex items-start;
+  @apply flex cursor-pointer items-start;
 }
 
 .nobelium-toggle-empty > summary {
@@ -213,7 +213,7 @@ pre[class*='language-'] {
 }
 
 .nobelium-toggle-triangle {
-  @apply flex-none w-7 text-center;
+  @apply w-7 flex-none text-center;
   line-height: inherit;
 }
 
@@ -239,7 +239,7 @@ pre[class*='language-'] {
 }
 
 .nobelium-toggle-content {
-  @apply pl-7 mt-0.5;
+  @apply mt-0.5 pl-7;
 }
 
 .nobelium-toggle-content > * {

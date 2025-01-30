@@ -12,19 +12,22 @@ const components = {
 
   // Code block
   Code: dynamic(async () => {
-    return function CodeSwitch (props) {
+    return function CodeSwitch(props) {
       switch (getTextContent(props.block.properties.language)) {
         case 'Mermaid':
           return h(
-            dynamic(() => {
-              return import('@/components/notion-blocks/Mermaid').then(module => module.default)
-            }, { ssr: false }),
+            dynamic(
+              () => {
+                return import('@/components/notion-blocks/Mermaid').then((module) => module.default)
+              },
+              { ssr: false }
+            ),
             props
           )
         default:
           return h(
             dynamic(() => {
-              return import('react-notion-x/build/third-party/code').then(async module => {
+              return import('react-notion-x/build/third-party/code').then(async (module) => {
                 // Additional prismjs syntax
                 await Promise.all([
                   import('prismjs/components/prism-markup-templating'),
@@ -57,7 +60,7 @@ const components = {
                   import('prismjs/components/prism-stylus'),
                   import('prismjs/components/prism-swift'),
                   import('prismjs/components/prism-wasm'),
-                  import('prismjs/components/prism-yaml')
+                  import('prismjs/components/prism-yaml'),
                 ])
                 return module.Code
               })
@@ -69,21 +72,24 @@ const components = {
   }),
   // Database block
   Collection: dynamic(() => {
-    return import('react-notion-x/build/third-party/collection').then(module => module.Collection)
+    return import('react-notion-x/build/third-party/collection').then((module) => module.Collection)
   }),
   // Equation block & inline variant
   Equation: dynamic(() => {
-    return import('react-notion-x/build/third-party/equation').then(module => module.Equation)
+    return import('react-notion-x/build/third-party/equation').then((module) => module.Equation)
   }),
   // PDF (Embed block)
-  Pdf: dynamic(() => {
-    return import('react-notion-x/build/third-party/pdf').then(module => module.Pdf)
-  }, { ssr: false }),
+  Pdf: dynamic(
+    () => {
+      return import('react-notion-x/build/third-party/pdf').then((module) => module.Pdf)
+    },
+    { ssr: false }
+  ),
   // Tweet block
   Tweet: dynamic(() => {
-    return import('react-tweet-embed').then(module => {
+    return import('react-tweet-embed').then((module) => {
       const { default: TweetEmbed } = module
-      return function Tweet ({ id }) {
+      return function Tweet({ id }) {
         return <TweetEmbed tweetId={id} options={{ theme: 'dark' }} />
       }
     })
@@ -91,12 +97,10 @@ const components = {
 
   /* Overrides */
 
-  toggle_nobelium: ({ block, children }) => (
-    <Toggle block={block}>{children}</Toggle>
-  )
+  toggle_nobelium: ({ block, children }) => <Toggle block={block}>{children}</Toggle>,
 }
 
-const mapPageUrl = id => `https://www.notion.so/${id.replace(/-/g, '')}`
+const mapPageUrl = (id) => `https://www.notion.so/${id.replace(/-/g, '')}`
 
 /**
  * Notion page renderer
@@ -105,12 +109,12 @@ const mapPageUrl = id => `https://www.notion.so/${id.replace(/-/g, '')}`
  *
  * @param props - Anything that react-notion-x/NotionRenderer supports
  */
-export default function NotionRenderer (props) {
+export default function NotionRenderer(props) {
   const config = useConfig()
 
   const font = {
     'sans-serif': FONTS_SANS,
-    'serif': FONTS_SERIF
+    serif: FONTS_SERIF,
   }[config.font]
 
   // Mark block types to be custom rendered by appending a suffix
@@ -128,16 +132,12 @@ export default function NotionRenderer (props) {
     <>
       <style jsx global>
         {`
-        .notion {
-          --notion-font: ${font};
-        }
+          .notion {
+            --notion-font: ${font};
+          }
         `}
       </style>
-      <Renderer
-        components={components}
-        mapPageUrl={mapPageUrl}
-        {...props}
-      />
+      <Renderer components={components} mapPageUrl={mapPageUrl} {...props} />
     </>
   )
 }
