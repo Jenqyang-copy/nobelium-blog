@@ -1,6 +1,6 @@
 const X = () => {
   return (
-    <a href="https://x.com/Jenqyanghou" target="_blank" rel="noreferrer" aria-label="X">
+    <a href="https://x.com/zanehoucc" target="_blank" rel="noreferrer" aria-label="X">
       <svg
         width="20"
         height="20"
